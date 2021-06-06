@@ -76,13 +76,11 @@ class SelfAttention(nn.Module):
 		keys = keys.reshape(Nkey, key_len, self.heads, self.head_dim)
 		query = query.reshape(Nquery, query_len, self.heads, self.head_dim)
 
-		#print("SelfAttention After values size", values.shape, "keys", keys.shape, "query",query.shape)
 
 		values = self.values(values)
 		keys = self.keys(keys)
 		query = self.queries(query)
 
-		#print("SelfAttention End values size", values.shape, "keys",keys.shape, "query",query.shape)
 
 		#energy shape (N, heads, query_len, key_len)
 		#query shape (N, query_len, heads, head_dim)
@@ -167,7 +165,6 @@ class Encoder(nn.Module):
 	def forward(self, x, mask):
 		
 		out = self.position(x)
-		#print("Encoder shape", x.shape, "Positional shape", out.shape)
 
 		for layer in self.layers:
 			out = layer(out, out, out, mask)
